@@ -1,27 +1,36 @@
+/* ==========================================================
+   PetCare · Maquetación inicial HTML/CSS (Actividad 2)
+   Basada en los mockups de Figma. Los tokens de :root
+   corresponden a los estilos de color y texto del UI Kit.
+   ========================================================== */
+
+/* ---------- Fuentes locales ---------- */
 @font-face { font-family: "Nunito"; font-weight: 400; font-display: swap; src: url("../assets/fonts/nunito-latin-400-normal.woff2") format("woff2"); }
 @font-face { font-family: "Nunito"; font-weight: 600; font-display: swap; src: url("../assets/fonts/nunito-latin-600-normal.woff2") format("woff2"); }
 @font-face { font-family: "Nunito"; font-weight: 700; font-display: swap; src: url("../assets/fonts/nunito-latin-700-normal.woff2") format("woff2"); }
 @font-face { font-family: "Nunito"; font-weight: 800; font-display: swap; src: url("../assets/fonts/nunito-latin-800-normal.woff2") format("woff2"); }
 
+/* ---------- Tokens (UI Kit) ---------- */
 :root {
-  --green-700: #2E7D5B;   
-  --green-800: #23644A;   
+  --green-700: #2E7D5B;   /* primario */
+  --green-800: #23644A;   /* hover */
   --green-900: #1F5A41;
-  --green-100: #E3F1E9;   
+  --green-100: #E3F1E9;   /* fondos suaves, elemento activo */
   --green-50:  #F1F8F4;
-  --yellow-400: #F4C542;  
+  --yellow-400: #F4C542;  /* secundario / acento */
   --yellow-100: #FDF1D2;
-  --cream-50:  #FAF6EE;   
+  --cream-50:  #FAF6EE;   /* fondo de la aplicación */
   --cream-100: #F3EEE4;
   --peach-200: #F6D2B5;
   --red-500: #D9534F;
 
-  --ink-900: #1E2A24;     
+  --ink-900: #1E2A24;     /* texto principal */
   --ink-700: #3D4A43;
-  --ink-500: #6A756F;     
-  --line:    #ECE5D8;     
+  --ink-500: #5E6963;     /* texto secundario */
+  --line:    #ECE5D8;     /* bordes */
   --white:   #FFFFFF;
 
+  /* Estados (texto / fondo) */
   --ok-fg: #1F6B4B;    --ok-bg: #DDF0E5;
   --warn-fg: #8A5A00;  --warn-bg: #FDF1D2;
   --err-fg: #B0302C;   --err-bg: #FBE3E2;
@@ -199,7 +208,7 @@ button { font-family: inherit; }
 .auth-art { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 48px; border-radius: var(--r-xl); background: var(--green-700); color: var(--white); overflow: hidden; }
 .auth-art .brand { color: var(--white); padding: 0; margin: 0; }
 .auth-art h2 { font-size: 40px; line-height: 1.1; max-width: 420px; color: var(--white); }
-.auth-art p { margin-top: 18px; max-width: 440px; font-size: 16px; color: #E7F2EC; }
+.auth-art p { margin-top: 18px; max-width: 440px; font-size: 16px; color: #FFFFFF; }
 .art-stage { position: relative; display: grid; place-items: center; flex: 1; min-height: 320px; }
 .art-circle { width: 300px; height: 300px; border-radius: 50%; display: grid; place-items: end center; overflow: hidden; }
 .art-circle.yellow { background: var(--yellow-400); }
@@ -259,7 +268,7 @@ button { font-family: inherit; }
 .detail-head { display: flex; align-items: center; gap: 16px; padding: 22px; background: var(--green-700); color: var(--white); }
 .detail-head .avatar { width: 64px; height: 64px; font-size: 24px; }
 .detail-head h2 { color: var(--white); font-size: 24px; }
-.detail-head small { color: #E1F0E8; font-size: 14px; font-weight: 600; }
+.detail-head small { color: #FFFFFF; font-size: 14px; font-weight: 600; }
 .detail-body { padding: 22px; display: grid; gap: 16px; }
 .detail-body .input, .detail-body .textarea { min-height: 44px; }
 .hist { display: grid; gap: 8px; }
@@ -291,7 +300,7 @@ button { font-family: inherit; }
 .sp-list li { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.14); font-weight: 800; }
 .sp-list li span { display: inline-flex; align-items: center; gap: 10px; }
 .sp-list i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
-.species .base { margin-top: 16px; font-size: 13px; color: #E1F0E8; }
+.species .base { margin-top: 16px; font-size: 13px; color: #FFFFFF; }
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 1280px) {
@@ -373,7 +382,7 @@ body.modal-open { overflow: hidden; }
 /* Hero del dueño */
 .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; padding: 32px; border-radius: var(--r-xl); background: var(--green-700); color: var(--white); margin-bottom: 28px; }
 .hero h1 { color: var(--white); }
-.hero p { color: #E1F0E8; margin: 8px 0 20px; font-size: 16px; }
+.hero p { color: #FFFFFF; margin: 8px 0 20px; font-size: 16px; }
 .hero .search .input { border-color: transparent; min-height: 52px; }
 .hero .search { max-width: 520px; }
 .hero-art { width: 190px; height: 190px; border-radius: 50%; background: var(--yellow-400); display: grid; place-items: end center; overflow: hidden; }
@@ -569,3 +578,10 @@ body.modal-open { overflow: hidden; }
 .tab { text-decoration: none !important; display: inline-flex; align-items: center; }
 .next { white-space: nowrap; }
 @media (max-width: 640px) { .item-side { flex-wrap: wrap; gap: 10px; } .item-side .price { text-align: left; } }
+
+/* Iteración 2 (hallazgos de la evaluación simulada) */
+.agenda td.go { width: 40px; text-align: right; color: var(--ink-500); }
+.agenda tbody tr:hover td.go { color: var(--green-700); }
+.agenda tbody tr:hover td:first-child { color: var(--green-700); }
+.help-always { font-size: 12px; color: var(--ink-500); font-weight: 600; }
+.hint { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-500); font-weight: 600; margin-top: 10px; }

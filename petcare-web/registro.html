@@ -128,11 +128,13 @@
     <div class="row-2"><div class="field"><label class="label" for="doc">Documento</label><input class="input" id="doc" inputmode="numeric" placeholder="C.C. 1.000.000.000" required data-min="6"><span class="field-error">Escribe un documento válido.</span></div>
     <div class="field"><label class="label" for="tel">Teléfono</label><input class="input" id="tel" type="tel" placeholder="300 000 0000" required data-min="10"><span class="field-error">El celular debe tener 10 dígitos.</span></div></div>
     <div class="field"><label class="label" for="remail">Correo electrónico</label><input class="input" id="remail" type="email" placeholder="tucorreo@ejemplo.com" required><span class="field-error">Escribe un correo válido, por ejemplo nombre@correo.com.</span></div>
-    <div class="row-2"><div class="field"><label class="label" for="p1">Contraseña</label><input class="input" id="p1" type="password" placeholder="Mínimo 8 caracteres" required data-pass><span class="field-error">Mínimo 8 caracteres con letras y números.</span></div>
+    <div class="row-2"><div class="field"><label class="label" for="p1">Contraseña</label><input class="input" id="p1" type="password" placeholder="Mínimo 8 caracteres" required data-pass aria-describedby="p1-help"><span class="help-always" id="p1-help">Usa mínimo 8 caracteres, con letras y números.</span><span class="field-error">La contraseña aún no cumple: mínimo 8 caracteres con letras y números.</span></div>
     <div class="field"><label class="label" for="p2">Confirmar contraseña</label><input class="input" id="p2" type="password" placeholder="Repite la contraseña" required data-match="p1"><span class="field-error">Las contraseñas no coinciden.</span></div></div>
     <div class="field"><label class="label" for="tipo">Tipo de usuario</label><select class="select input" id="tipo"><option value="owner">Propietario de mascota</option><option value="clinic">Proveedor de servicios (clínica, peluquería, paseador)</option></select></div>
     <label class="check"><input type="checkbox" id="terms"> Acepto los términos y la política de tratamiento de datos (Ley 1581 de 2012).</label>
     <button class="btn btn-primary btn-lg btn-block" type="submit" id="reg-btn" disabled>Crear cuenta</button>
+    <div class="divider">o regístrate con</div>
+    <div class="row-2"><button type="button" class="btn btn-outline btn-lg" data-toast="El registro con Google se habilitará en una versión futura.">Google</button><button type="button" class="btn btn-outline btn-lg" data-toast="El registro con Apple se habilitará en una versión futura.">Apple</button></div>
     <p class="foot">¿Ya tienes una cuenta? <a href="index.html">Inicia sesión</a></p>
   </form>
 </div></section>

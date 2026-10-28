@@ -1,7 +1,7 @@
 # PetCare · Maquetación HTML + CSS (Actividad 2)
 
 Maquetación estática y navegable de los mockups de alta fidelidad diseñados en Figma.
-Abre `index.html` en el navegador.
+Abre `index.html` en el navegador (no necesita servidor ni internet).
 
 ## Vistas
 | Archivo | Vista | Modales e interacciones |
@@ -18,7 +18,7 @@ muestran un aviso porque se diseñarán en la siguiente iteración.
 ## Estructura
 ```
 css/styles.css   tokens del UI Kit (:root), componentes y reglas responsive
-js/app.js        interacciones de demostración
+js/app.js        interacciones de demostración (sin lógica de negocio)
 assets/fonts/    fuente Nunito local
 ```
-
+Íconos: Lucide (ISC). Fuente: Nunito (SIL Open Font License).

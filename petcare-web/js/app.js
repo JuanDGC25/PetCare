@@ -1,3 +1,8 @@
+/* ==========================================================
+   PetCare · Interacciones de la maquetación (Actividad 2)
+   Simula la navegación y la retroalimentación de la interfaz.
+   No contiene lógica de negocio ni guarda datos en un servidor.
+   ========================================================== */
 (function () {
   "use strict";
   const $ = (s, c = document) => c.querySelector(s);
@@ -8,6 +13,7 @@
     set(k, v) { try { sessionStorage.setItem("pc-" + k, JSON.stringify(v)); } catch (e) { /* sin almacenamiento */ } },
   };
 
+  /* ---------- Mensajes emergentes (retroalimentación inmediata) ---------- */
   function toast(msg, icon = "check") {
     const region = $(".toast-region");
     if (!region || !msg) return;
@@ -25,12 +31,14 @@
     if (soon) { e.preventDefault(); toast("Esta sección se diseñará en la siguiente iteración.", "info"); }
   });
 
+  /* ---------- Menú lateral en celular ---------- */
   const sidebar = $("#sidebar");
   $$("[data-menu]").forEach((b) => b.addEventListener("click", () => sidebar && sidebar.classList.toggle("open")));
   document.addEventListener("click", (e) => {
     if (sidebar && sidebar.classList.contains("open") && !e.target.closest("#sidebar") && !e.target.closest("[data-menu]")) sidebar.classList.remove("open");
   });
 
+  /* ---------- Modales ---------- */
   let lastTrigger = null;
   const openStack = [];
   function openModal(id, trigger) {
@@ -67,6 +75,7 @@
     const f = $("#filters"); if (f) f.classList.remove("open");
   });
 
+  /* ---------- Notificaciones ---------- */
   $$("[data-popover]").forEach((b) => b.addEventListener("click", (e) => {
     e.stopPropagation();
     const p = document.getElementById(b.dataset.popover);
@@ -77,6 +86,7 @@
     if (!e.target.closest(".popover")) $$(".popover").forEach((p) => (p.hidden = true));
   });
 
+  /* ---------- Validación de formularios ---------- */
   const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   function valid(input) {
     const v = input.value.trim();
@@ -100,6 +110,7 @@
   }
   $$("form [required]").forEach((i) => i.addEventListener("blur", () => { if (i.value) mark(i, valid(i)); }));
 
+  /* ---------- Contraseña visible ---------- */
   $$(".toggle-pass").forEach((b) => b.addEventListener("click", () => {
     const input = b.parentElement.querySelector("input");
     const show = input.type === "password";
@@ -108,6 +119,7 @@
     b.querySelector("use").setAttribute("href", show ? "#i-eye-off" : "#i-eye");
   }));
 
+  /* ---------- Inicio de sesión ---------- */
   const login = $("#login-form");
   if (login) login.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -125,6 +137,7 @@
     }, 900);
   });
 
+  /* ---------- Registro ---------- */
   const reg = $("#reg-form");
   if (reg) {
     const fields = $$("input[required]", reg), terms = $("#terms"), btn = $("#reg-btn");
@@ -138,6 +151,7 @@
     });
   }
 
+  /* ---------- Formularios de modales ---------- */
   $$(".modal form, form[data-success]").forEach((form) => form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validateForm(form)) return;
@@ -148,7 +162,7 @@
     const m = form.closest(".modal-backdrop");
     if (m) { closeModal(m); form.reset(); $$(".has-error", form).forEach((x) => x.classList.remove("has-error")); }
   }));
-
+  // Botones de envío asociados con form="…" fuera del <form>
   $$("button[type=submit][form]").forEach((b) => b.addEventListener("click", (e) => {
     const f = document.getElementById(b.getAttribute("form"));
     if (f && typeof f.requestSubmit !== "function") { e.preventDefault(); f.dispatchEvent(new Event("submit", { cancelable: true })); }
@@ -189,16 +203,18 @@
     const tr = document.createElement("tr");
     const hour = $("#na-time").value;
     tr.dataset.turn = +hour.slice(0, 2) < 12 ? "manana" : "tarde";
-    tr.innerHTML = `<td></td><td><div class="pet"><span class="avatar av-g"></span><div><strong></strong><small></small></div></div></td><td></td><td class="muted"></td><td><span class="badge b-ok">Confirmada</span></td>`;
+    tr.innerHTML = `<td></td><td><div class="pet"><span class="avatar av-g"></span><div><strong></strong><small></small></div></div></td><td></td><td class="muted"></td><td><span class="badge b-ok">Confirmada</span></td><td class="go"><svg class="i i-sm"><use href="#i-chevron-right"/></svg></td>`;
     const td = $$("td", tr);
     td[0].textContent = hour; $(".avatar", tr).textContent = pet[0]; $("strong", tr).textContent = pet; $("small", tr).textContent = owner;
     td[2].textContent = $("#na-svc").value; td[3].textContent = $("#na-vet").value;
     tr.dataset.appt = JSON.stringify({ h: hour, n: pet, d: owner, s: $("#na-svc").value, v: $("#na-vet").value, e: "Confirmada" });
     tr.tabIndex = 0;
-    body.appendChild(tr);
+    const after = $$("tr", body).find((r) => $("td", r).textContent > hour);
+    body.insertBefore(tr, after || null);
     bindAppt(tr);
   }
 
+  /* ---------- Pestañas ---------- */
   $$("[data-tabs]").forEach((list) => {
     const tabs = $$("button.tab[aria-controls]", list);
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -206,12 +222,14 @@
     }));
   });
 
+  /* ---------- Controles segmentados ---------- */
   $$(".segmented").forEach((g) => g.addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
     $$("button", g).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     if (g.dataset.filter === "agenda") $$("#agenda tbody tr").forEach((tr) => { tr.hidden = b.dataset.v !== "todas" && tr.dataset.turn !== b.dataset.v; });
   }));
 
+  /* ---------- Detalle de cita ---------- */
   function bindAppt(tr) {
     const open = () => {
       const d = JSON.parse(tr.dataset.appt);
@@ -225,6 +243,7 @@
   }
   $$("tr[data-appt]").forEach(bindAppt);
 
+  /* ---------- Solicitudes de la clínica ---------- */
   function setPending(delta) {
     $$("[data-pending-count]").forEach((c) => {
       const n = Math.max(0, (+c.textContent || 0) + delta);
@@ -253,6 +272,7 @@
     if (card) resolveReq(card, false);
   });
 
+  /* ---------- Cancelar reserva (dueño) ---------- */
   const cancelBtn = $("[data-cancel-confirm]");
   if (cancelBtn) cancelBtn.addEventListener("click", () => {
     const card = lastTrigger && lastTrigger.closest("[data-booking]");
@@ -265,6 +285,7 @@
     toast("Reserva cancelada. El proveedor fue notificado.", "circle-x");
   });
 
+  /* ---------- Gestión de información ---------- */
   const pets = $("#pets");
   if (pets) {
     let group = "todas";
@@ -281,6 +302,8 @@
       apply();
     });
     $("#pet-search").addEventListener("input", apply);
+    const q0 = store.get("q");
+    if (q0) { $("#pet-search").value = q0; store.set("q", ""); apply(); }
     const select = (tr) => {
       const d = JSON.parse(tr.dataset.pet);
       $$("tbody tr", pets).forEach((x) => x.classList.toggle("is-selected", x === tr));
@@ -293,9 +316,10 @@
       tr.addEventListener("click", () => select(tr));
       tr.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(tr); } });
     });
-    $("#pet-form-detail").addEventListener("submit", (e) => { e.preventDefault(); toast("Cambios guardados en la historia clínica."); });
+    $("#pet-form-detail").addEventListener("submit", (e) => { e.preventDefault(); toast(`Cambios guardados en la historia clínica de ${$("#d-n").value}.`); });
   }
 
+  /* ---------- Búsqueda en la barra superior ---------- */
   $$("form[data-search-go]").forEach((f) => f.addEventListener("submit", (e) => {
     e.preventDefault();
     const q = $("input", f).value.trim();
@@ -304,6 +328,7 @@
     else { store.set("q", q); location.href = target; }
   }));
 
+  /* ---------- Configuración: servicios y horario ---------- */
   $$("[data-toggle-svc]").forEach((b) => b.addEventListener("click", () => {
     const row = b.closest("[data-svc]"), st = $("[data-svc-status]", row);
     const active = st.textContent === "Activo";
@@ -324,6 +349,7 @@
   });
   $$("[data-day]").forEach((c) => c.addEventListener("change", () => c.closest(".week-row").classList.toggle("off", !c.checked)));
 
+  /* ---------- Buscar servicios (dueño) ---------- */
   const results = $("#results");
   if (results) {
     const CATS = { veterinaria: "Veterinaria", peluqueria: "Peluquería", paseo: "Paseo", guarderia: "Guardería" };
@@ -353,6 +379,7 @@
       $("#no-results").hidden = n > 0;
       $("#f-price-v").textContent = fmt(s.price);
       $("#search-title").textContent = s.cat ? CATS[s.cat] : "Buscar servicios";
+      // Etiquetas de filtros activos
       const chips = [];
       if (s.cat) chips.push(["cat", CATS[s.cat]]);
       s.days.forEach((d) => chips.push(["day:" + d, DAY_N[d]]));
@@ -394,6 +421,7 @@
     apply();
   }
 
+  /* ---------- Días y horarios ---------- */
   $$("[data-week]").forEach((w) => w.addEventListener("click", (e) => {
     const b = e.target.closest(".wday"); if (!b || b.disabled) return;
     $$(".wday", w).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
@@ -405,6 +433,7 @@
     updateSummary();
   }));
 
+  /* ---------- Asistente de reserva ---------- */
   const wizard = $("#wizard");
   function updateSummary() {
     if (!wizard) return;
@@ -441,6 +470,7 @@
     render();
   }
 
+  /* ---------- Solicitud enviada ---------- */
   if (page === "solicitud-enviada.html") {
     const b = store.get("booking");
     if (b && b.svc) {
