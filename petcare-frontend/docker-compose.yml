@@ -1,0 +1,21 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: petcare-frontend
+    container_name: petcare_frontend
+    environment:
+      API_PROXY_TARGET: ${API_PROXY_TARGET:-http://petcare_backend:3000}
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    networks:
+      - PETCARE
+    restart: unless-stopped
+    cpus: "2.0"
+    mem_limit: 2g
+
+networks:
+  PETCARE:
+    name: petcare_net
+    external: true
