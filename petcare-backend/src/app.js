@@ -25,3 +25,5 @@ for (const [path, router] of Object.entries(routes)) app.use(`/api/${path}`, rou
 
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Ruta no encontrada' }));
 app.use(errorHandler);
+
+

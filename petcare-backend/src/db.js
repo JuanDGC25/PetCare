@@ -41,3 +41,6 @@ export async function initDatabase({ retries = 15, delayMs = 2000 } = {}) {
   await pool.query(schema);
   console.log('[db] Esquema verificado');
 }
+
+
+

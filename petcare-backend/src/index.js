@@ -12,3 +12,6 @@ if (config.jwtSecret.length < 32) console.warn('[api] JWT_SECRET es muy corta: u
 await initDatabase();
 await seedIfEmpty();
 app.listen(config.port, () => console.log(`[api] PetCare API escuchando en http://localhost:${config.port}`));
+
+
+
