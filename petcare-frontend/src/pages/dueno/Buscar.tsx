@@ -97,8 +97,8 @@ export default function Buscar() {
             </div>
           </fieldset>
           <fieldset>
-            <legend>Precio máximo</legend>
-            <select className="input select" value={f.maxPrice} onChange={(e) => setFilter('maxPrice', e.target.value)}>
+            <legend id="f-price">Precio máximo</legend>
+            <select className="input select" aria-labelledby="f-price" value={f.maxPrice} onChange={(e) => setFilter('maxPrice', e.target.value)}>
               <option value="">Cualquier precio</option>
               {PRICES.map((p) => <option key={p} value={p}>Hasta {formatMoney(p)}</option>)}
             </select>
@@ -115,8 +115,8 @@ export default function Buscar() {
             </div>
           </fieldset>
           <fieldset>
-            <legend>Localidad</legend>
-            <select className="input select" value={f.locality} onChange={(e) => setFilter('locality', e.target.value)}>
+            <legend id="f-locality">Localidad</legend>
+            <select className="input select" aria-labelledby="f-locality" value={f.locality} onChange={(e) => setFilter('locality', e.target.value)}>
               <option value="">Toda Bogotá</option>
               {meta.data?.localities.map((l) => <option key={l}>{l}</option>)}
             </select>

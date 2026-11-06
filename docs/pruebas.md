@@ -95,6 +95,18 @@ Se recorrieron en el navegador como lo haría una persona: clics, formularios y 
 | Al eliminar una mascota con citas atendidas se borraba su historia clínica y se alteraban los reportes de la clínica | La API impide eliminar mascotas con historial de atenciones y lo explica en el mensaje |
 | Al registrar un paciente en la clínica con varios errores, la API devolvía primero los de la mascota y después los del propietario | La API devuelve todos los errores del formulario a la vez |
 
+## Inspección de usabilidad y accesibilidad
+
+Revisión con axe-core (WCAG 2.1 A y AA) en 12 pantallas y desplazamiento horizontal a 360, 768, 1280 y 1920 px
+(48 combinaciones). Resultado final: **48 de 48 sin desplazamiento y ninguna falla de accesibilidad**.
+
+| N.º | Problema | Corrección |
+|---|---|---|
+| P1 | En «Citas», a 360 px, la página sobresalía 314 px. El texto oculto «Ver» del encabezado de la tabla se salía del contenedor con desplazamiento | El contenedor de la tabla es la referencia de posición, así que la tabla se desplaza sola; las pestañas pasan a otra línea en pantallas pequeñas |
+| P2 | En «Buscar», las listas de precio máximo y localidad no tenían etiqueta para lectores de pantalla | Cada lista se asocia con su título (`aria-labelledby`) |
+| P3 | En «Registro», el texto blanco de los beneficios tenía un contraste de 3,95:1 | Fondo verde oscuro de la guía de estilos (`--green-900`) |
+| P4 | En «Configuración», las horas de los días cerrados tenían un contraste de 2,68:1 y se podían enfocar con el teclado | Los campos de un día cerrado quedan deshabilitados y se activan al abrir el día |
+
 ## Capturas
 
 Los pantallazos de cada pantalla están en [docs/capturas/](capturas/):

@@ -24,3 +24,8 @@
 .demo-box { margin-top: 26px; padding: 14px 16px; border-radius: var(--r-md); background: var(--cream-100); font-size: 13px; color: var(--ink-700); }
 .demo-box code { font-weight: 800; color: var(--ink-900); }
 .demo-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+.table-wrap { position: relative; }
+@media (max-width: 560px) { .tabs { flex-wrap: wrap; overflow-x: visible; } }
+
+.benefits li { background: var(--green-900); }

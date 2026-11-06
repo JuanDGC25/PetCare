@@ -130,8 +130,8 @@ function Schedule() {
                 <input type="checkbox" checked={r.on} onChange={(e) => set({ on: e.target.checked })} />
                 <span className="tr" />{WEEKDAYS[d]}
               </label>
-              <input className="input" type="time" aria-label={`${WEEKDAYS[d]}: abre`} value={r.start} onChange={(e) => set({ start: e.target.value })} />
-              <input className="input" type="time" aria-label={`${WEEKDAYS[d]}: cierra`} value={r.end} onChange={(e) => set({ end: e.target.value })} />
+              <input className="input" type="time" aria-label={`${WEEKDAYS[d]}: abre`} disabled={!r.on} value={r.start} onChange={(e) => set({ start: e.target.value })} />
+              <input className="input" type="time" aria-label={`${WEEKDAYS[d]}: cierra`} disabled={!r.on} value={r.end} onChange={(e) => set({ end: e.target.value })} />
             </div>
           );
         })}
