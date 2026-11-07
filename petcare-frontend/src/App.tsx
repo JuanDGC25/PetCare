@@ -25,6 +25,7 @@ function Only({ role, children }: { role?: Role; children: ReactNode }) {
   return <>{children}</>;
 }
 
+
 function Public({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return <Loading text="Cargando sesión…" />;

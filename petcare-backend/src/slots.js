@@ -20,7 +20,9 @@ export async function computeSlots(db, providerId, durationMin, date) {
   ]);
 
   const busy = taken.rows.map((b) => [toMinutes(b.start_time), toMinutes(b.end_time)]);
+  
   const minStart = date === today.date ? today.minutes + 30 : 0;
+
   const slots = [];
 
   for (const a of avail.rows) {

@@ -7,6 +7,7 @@ import { ToastProvider } from './components/ui';
 import './styles.css';
 import './app.css';
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
